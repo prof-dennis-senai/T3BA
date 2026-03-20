@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'app_blog/css/style.css' %}">
+    <title>Home</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'sobre' %}">Sobre</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Olá mundo!</h1>
+    <h3>Bem vindo ao SafeIndustry</h3>
+    <p>O projeto simula um cenário corporativo real, integrando análise, modelagem, desenvolvimento e validação de software.</p>
+</body>
+</html>
