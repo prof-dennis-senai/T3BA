@@ -6,4 +6,11 @@
     <h1>Olá mundo! Listando as empresas</h1>
     <h3>Bem vindo ao SafeIndustry</h3>
     <p>O projeto simula um cenário corporativo real, integrando análise, modelagem, desenvolvimento e validação de software.</p>
-{% endblock content %}
+
+    <ul>
+        {% for empresa in empresas %}
+            <li>{{ empresa.id }} - {{ empresa.nome }} - {{ empresa.cnpj }} - {{ empresa.email }} - {{ empresa.telefone }}</li>
+        {% endfor %}
+    </ul>
+
+    {% endblock content %}
