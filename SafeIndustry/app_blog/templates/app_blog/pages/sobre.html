@@ -1,26 +1,9 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'app_blog/css/style.css' %}">
-    <title>Sobre</title>
-</head>
+{% extends "app_blog/base.html" %}
 
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'sobre' %}">Sobre</a></li>
-            </ul>
-        </nav>
-    </header>
+{% block title %}Home{% endblock title %}
 
+{% block content %}
     <h1>Olá mundo!</h1>
     <h3>Bem vindo a página Sobre</h3>
-    <p>Aqui você encontra informações sobre o projeto!</p>
-</body>
-
-</html>
+    <p>Aqui você encontra informações sobre o projetoooooooooooooooooo!</p>
+{% endblock content %}
