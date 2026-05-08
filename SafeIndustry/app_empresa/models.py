@@ -9,3 +9,9 @@ class EmpresaModel(models.Model):
 
     def __str__(self):
         return self.nome
+    
+class ColaboradorModel(models.Model):
+    nome = models.CharField(max_length=100)
+    email = models.EmailField()
+    telefone = models.CharField(max_length=15)
+    empresa = models.ForeignKey(EmpresaModel, on_delete=models.PROTECT)

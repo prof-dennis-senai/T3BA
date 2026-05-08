@@ -1,11 +1,11 @@
 {% extends "app_empresa/base.html" %}
 
-{% block title %}SafeIndustry - Criar Empresas{% endblock title %}
+{% block title %}SafeIndustry - Atualizar Empresas{% endblock title %}
 
 {% block content %}
 <div class="container">
     <div class="container-header">
-        <h1>Criar Empresa</h1>
+        <h1>Atualizar Empresa</h1>
     </div>
 
     <div class="container-body">
@@ -13,21 +13,21 @@
             {% csrf_token %}
             <div class="form-line">
                 <label for="nome">Nome da empresa:</label>
-                <input name="nome" type="text" value="{{nome}}" required>
+                <input name="nome" type="text" value="{{empresa.nome}}" required>
             </div>
             <div class="form-line">
                 <label for="cnpj">CNPJ:</label>
-                <input name="cnpj" type="text" value="{{cnpj}}" required>
+                <input name="cnpj" type="text" value="{{empresa.cnpj}}" required>
             </div>
             <div class="form-line">
                 <label for="email">Email:</label>
-                <input name="email" type="email" value="{{email}}" required>
+                <input name="email" type="email" value="{{empresa.email}}" required>
             </div>
             <div class="form-line">
                 <label for="telefone">Telefone:</label>
-                <input name="telefone" type="text" value="{{telefone}}" required>
+                <input name="telefone" type="text" value="{{empresa.telefone}}" required>
             </div>
-            <button type="submit">Criar</button>
+            <button type="submit">Atualizar</button>
         </form>
     </div>
 

@@ -10,7 +10,7 @@
 
 <ul>
     {% for empresa in empresas %}
-    <li>{{ empresa.id }} - {{ empresa.nome }} - {{ empresa.cnpj }} - {{ empresa.email }} - {{ empresa.telefone }}</li>
+    <li>{{ empresa.id }} - {{ empresa.nome }} - {{ empresa.cnpj }} - {{ empresa.email }} - {{ empresa.telefone }} | <a href="{% url 'remover_empresa' empresa.id %}">Remover</a> | <a href="{% url 'atualizar_empresa' empresa.id %}">Atualizar</a> </li>
     {% endfor %}
 </ul>
 

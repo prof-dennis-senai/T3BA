@@ -61,3 +61,30 @@ def criar_empresa(request):
             return redirect('listar_empresas')
         
     return render(request, 'app_empresa/pages/criar_empresa.html', {'nome': nome, 'cnpj': cnpj, 'email': email, 'telefone': telefone})
+
+def remover_empresa(request, id):
+    empresa = EmpresaModel.objects.get(id=id)
+    empresa.delete()
+
+    return redirect('listar_empresas')
+
+
+def atualizar_empresa(request, id):
+    empresa = EmpresaModel.objects.get(id=id)
+
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        cnpj = request.POST.get('cnpj')
+        email = request.POST.get('email')
+        telefone = request.POST.get('telefone')
+
+        if nome and cnpj and email and telefone:
+            empresa.nome = nome
+            empresa.cnpj = cnpj
+            empresa.email = email
+            empresa.telefone = telefone
+            empresa.save()
+
+            return redirect('listar_empresas')
+        
+    return render(request, 'app_empresa/pages/atualizar_empresa.html', {'empresa': empresa})
