@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from app_empresa.models import EmpresaModel
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
+
+@login_required
+@permission_required('app_empresa.view_empresamodel', raise_exception=True)
 def listar_empresas(request):
     # empresas1 = EmpresaModel(
     #     nome='Luzia e Sônia Transportes Ltda',
@@ -40,6 +44,8 @@ def listar_empresas(request):
     
     return render(request, 'app_empresa/pages/listar_empresas.html', {'empresas': dados_empresas})
 
+@login_required
+@permission_required('app_empresa.add_empresamodel', raise_exception=True)
 def criar_empresa(request):
     nome, cnpj, email, telefone = '', '', '', ''
 
@@ -62,13 +68,16 @@ def criar_empresa(request):
         
     return render(request, 'app_empresa/pages/criar_empresa.html', {'nome': nome, 'cnpj': cnpj, 'email': email, 'telefone': telefone})
 
+@login_required
+@permission_required('app_empresa.delete_empresamodel', raise_exception=True)
 def remover_empresa(request, id):
     empresa = EmpresaModel.objects.get(id=id)
     empresa.delete()
 
     return redirect('listar_empresas')
 
-
+@login_required
+@permission_required('app_empresa.change_empresamodel', raise_exception=True)
 def atualizar_empresa(request, id):
     empresa = EmpresaModel.objects.get(id=id)
 
