@@ -6,5 +6,14 @@
             <li><a href="{% url 'listar_empresas' %}">Listar Empresa</a></li>
             <li><a href="{% url 'criar_empresa' %}">Criar Empresa</a></li>
         </ul>
+        <ul>
+            <li>
+                {% if user.is_authenticated %}
+                    <p> Ola, {{ user.username }}! <a href="{% url 'accounts_logout' %}">Logout</a></p>
+                {% else %}
+                    <a href="{% url 'accounts_login' %}">Login</a>
+                {% endif %}
+            </li>
+        </ul>
     </nav>
 </header>
