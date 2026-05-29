@@ -7,8 +7,9 @@ class EmpresaModel(models.Model):
     email = models.EmailField()
     telefone = models.CharField(max_length=15)
 
-    def __str__(self):
-        return self.nome
+    @property
+    def cnpj_formatado(self):
+        return f"{self.cnpj[:2]}.{self.cnpj[2:5]}.{self.cnpj[5:8]}/{self.cnpj[8:12]}-{self.cnpj[12:14]}"
     
 class ColaboradorModel(models.Model):
     nome = models.CharField(max_length=100)

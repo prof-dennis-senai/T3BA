@@ -1,0 +1,41 @@
+{% extends "global/base.html" %}
+
+{% block title %}SafeIndustry - Atualizar Colaboradores{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="container-header">
+        <h1>Atualizar Colaborador</h1>
+    </div>
+
+    <div class="container-body">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-line">
+                <label for="nome">Nome da colaborador:</label>
+                <input name="nome" type="text" value="{{colaborador.nome}}" required>
+            </div>
+            <div class="form-line">
+                <label for="email">Email:</label>
+                <input name="email" type="email" value="{{colaborador.email}}" required>
+            </div>
+            <div class="form-line">
+                <label for="telefone">Telefone:</label>
+                <input name="telefone" type="text" value="{{colaborador.telefone}}" required>
+            </div>
+            <div>
+                <label for="empresa">Empresa:</label>
+                <select name="empresa">
+                    {% for empresa in empresas %}
+                        <option value="{{empresa.id}}">{{empresa.nome}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit">Atualizar</button>
+        </form>
+    </div>
+
+</div>
+
+
+{% endblock content %}

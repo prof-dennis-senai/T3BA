@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from app_empresa.models import EmpresaModel
+from app_empresa.models import EmpresaModel, ColaboradorModel
 from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
@@ -66,7 +66,12 @@ def criar_empresa(request):
 
             return redirect('listar_empresas')
         
-    return render(request, 'app_empresa/pages/criar_empresa.html', {'nome': nome, 'cnpj': cnpj, 'email': email, 'telefone': telefone})
+    return render(request, 'app_empresa/pages/criar_empresa.html', {
+        'nome': nome,
+        'cnpj': cnpj,
+        'email': email,
+        'telefone': telefone
+    })
 
 @login_required
 @permission_required('app_empresa.delete_empresamodel', raise_exception=True)
@@ -97,3 +102,101 @@ def atualizar_empresa(request, id):
             return redirect('listar_empresas')
         
     return render(request, 'app_empresa/pages/atualizar_empresa.html', {'empresa': empresa})
+
+
+# Colaboradores
+
+@login_required
+@permission_required('app_empresa.view_colaboradormodel', raise_exception=True)
+def listar_colaboradores(request):
+    colaboradores = ColaboradorModel.objects.all()
+
+    return render(
+        request,
+        'app_empresa/pages/listar_colaboradores.html',
+        {'colaboradores': colaboradores}
+    )
+
+
+@login_required
+@permission_required('app_empresa.add_colaboradormodel', raise_exception=True)
+def criar_colaborador(request):
+    empresas = EmpresaModel.objects.all()
+
+    nome, email, telefone = '', '', ''
+    empresa_id = ''
+
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        email = request.POST.get('email')
+        telefone = request.POST.get('telefone')
+        empresa_id = request.POST.get('empresa')
+
+        if nome and email and telefone and empresa_id:
+            empresa = EmpresaModel.objects.get(id=empresa_id)
+
+            colaborador = ColaboradorModel(
+                nome=nome,
+                email=email,
+                telefone=telefone,
+                empresa=empresa
+            )
+
+            colaborador.save()
+
+            return redirect('listar_colaborador')
+
+    return render(
+        request,
+        'app_empresa/pages/criar_colaborador.html',
+        {
+            'empresas': empresas,
+            'nome': nome,
+            'email': email,
+            'telefone': telefone,
+            'empresa_id': empresa_id
+        }
+    )
+
+
+@login_required
+@permission_required('app_empresa.delete_colaboradormodel', raise_exception=True)
+def remover_colaborador(request, id):
+    colaborador = ColaboradorModel.objects.get(id=id)
+    colaborador.delete()
+
+    return redirect('listar_colaborador')
+
+
+@login_required
+@permission_required('app_empresa.change_colaboradormodel', raise_exception=True)
+def atualizar_colaborador(request, id):
+    colaborador = ColaboradorModel.objects.get(id=id)
+    empresas = EmpresaModel.objects.all()
+
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        email = request.POST.get('email')
+        telefone = request.POST.get('telefone')
+        empresa_id = request.POST.get('empresa')
+
+        if nome and email and telefone and empresa_id:
+            empresa = EmpresaModel.objects.get(id=empresa_id)
+
+            colaborador.nome = nome
+            colaborador.email = email
+            colaborador.telefone = telefone
+            colaborador.empresa = empresa
+
+            colaborador.save()
+
+            return redirect('listar_colaborador')
+
+    return render(
+        request,
+        'app_empresa/pages/atualizar_colaborador.html',
+        {
+            'colaborador': colaborador,
+            'empresas': empresas
+        }
+    )

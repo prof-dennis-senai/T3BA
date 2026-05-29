@@ -1,0 +1,17 @@
+{% extends "global/base.html" %}
+
+{% block title %}SafeIndustry - Listar Colaborador{% endblock title %}
+
+{% block content %}
+<h1>Olá mundo! Listando os colaboradores</h1>
+<h3>Bem vindo ao SafeIndustry</h3>
+<p>O projeto simula um cenário corporativo real, integrando análise, modelagem, desenvolvimento e validação de software.
+</p>
+
+<ul>
+    {% for colaborador in colaboradores %}
+    <li>{{ colaborador.id }} - {{ colaborador.nome }} - {{ colaborador.email }} - {{ colaborador.telefone }} ||| {{ colaborador.empresa.cnpj_formatado }} - {{ colaborador.empresa.nome }} | <a href="{% url 'remover_colaborador' colaborador.id %}">Remover</a> | <a href="{% url 'atualizar_colaborador' colaborador.id %}">Atualizar</a> </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
