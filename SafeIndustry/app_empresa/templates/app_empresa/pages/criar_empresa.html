@@ -27,6 +27,15 @@
                 <label for="telefone">Telefone:</label>
                 <input name="telefone" type="text" value="{{telefone}}" required>
             </div>
+            <!-- tipo empresa -->
+            <div class="form-line">
+                <label for="tipo_empresa">Tipo da empresa:</label>
+                <select name="tipo_empresa">
+                    {% for key, value in tipos_empresa %}
+                        <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+            </div>
             <button type="submit">Criar</button>
         </form>
     </div>

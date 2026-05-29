@@ -47,30 +47,35 @@ def listar_empresas(request):
 @login_required
 @permission_required('app_empresa.add_empresamodel', raise_exception=True)
 def criar_empresa(request):
-    nome, cnpj, email, telefone = '', '', '', ''
+    nome, cnpj, email, telefone, tipo_empresa = '', '', '', '', None
 
     if request.method == 'POST':
         nome = request.POST.get('nome')
         cnpj = request.POST.get('cnpj')
         email = request.POST.get('email')
         telefone = request.POST.get('telefone')
+        tipo_empresa = request.POST.get('tipo_empresa')
 
         if nome and cnpj and email and telefone:
             empresa = EmpresaModel(
                 nome=nome,
                 cnpj=cnpj,
                 email=email,
-                telefone=telefone
+                telefone=telefone,
+                tipo_empresa=tipo_empresa
             )
             empresa.save()
 
             return redirect('listar_empresas')
-        
+    
+    print(EmpresaModel.TipoEmpresa.choices)
     return render(request, 'app_empresa/pages/criar_empresa.html', {
         'nome': nome,
         'cnpj': cnpj,
         'email': email,
-        'telefone': telefone
+        'telefone': telefone,
+        'tipo_empresa': tipo_empresa,
+        'tipos_empresa': EmpresaModel.TipoEmpresa.choices
     })
 
 @login_required
@@ -91,17 +96,22 @@ def atualizar_empresa(request, id):
         cnpj = request.POST.get('cnpj')
         email = request.POST.get('email')
         telefone = request.POST.get('telefone')
+        tipo_empresa = request.POST.get('tipo_empresa')
 
         if nome and cnpj and email and telefone:
             empresa.nome = nome
             empresa.cnpj = cnpj
             empresa.email = email
             empresa.telefone = telefone
+            empresa.tipo_empresa = tipo_empresa
             empresa.save()
 
             return redirect('listar_empresas')
         
-    return render(request, 'app_empresa/pages/atualizar_empresa.html', {'empresa': empresa})
+    return render(request, 'app_empresa/pages/atualizar_empresa.html', {
+        'empresa': empresa,
+        'tipos_empresa': EmpresaModel.TipoEmpresa.choices
+    })
 
 
 # Colaboradores

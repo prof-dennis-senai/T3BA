@@ -10,8 +10,19 @@
 
 <ul>
     {% for empresa in empresas %}
-    <li>{{ empresa.id }} - {{ empresa.nome }} - {{ empresa.cnpj }} - {{ empresa.email }} - {{ empresa.telefone }} | <a href="{% url 'remover_empresa' empresa.id %}">Remover</a> | <a href="{% url 'atualizar_empresa' empresa.id %}">Atualizar</a> </li>
+    <li>{{ empresa.id }} - {{ empresa.nome }} - {{ empresa.cnpj }} - {{ empresa.email }} - {{ empresa.telefone }} | <a href="javascript:void(0)" onclick="deletarEmpresa({{ empresa.id }})">Remover</a> | <a href="{% url 'atualizar_empresa' empresa.id %}">Atualizar</a> </li>
     {% endfor %}
 </ul>
 
 {% endblock content %}
+
+{% block scripts %}
+<script>
+function deletarEmpresa(id) {
+    if (confirm("Tem certeza que deseja excluir a empresa?")) {
+        var url = "{% url 'remover_empresa' 0 %}"
+        window.location.href = url.replace('0', id);
+    }
+}
+</script>
+{% endblock scripts %}

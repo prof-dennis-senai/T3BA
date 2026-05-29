@@ -27,6 +27,17 @@
                 <label for="telefone">Telefone:</label>
                 <input name="telefone" type="text" value="{{empresa.telefone}}" required>
             </div>
+            <!-- tipo empresa -->
+            <div class="form-line">
+                <label for="tipo_empresa">Tipo da empresa:</label>
+                <select name="tipo_empresa" id="tipo_empresa">
+                    {% for key, value in tipos_empresa %}
+                    <option value="{{ key }}" {% if empresa.tipo_empresa == key %}selected{% endif %}>
+                        {{ value }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
             <button type="submit">Atualizar</button>
         </form>
     </div>
